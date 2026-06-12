@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thousif Shaik — Graphic Designer Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        darkBg: '#050811',
+                        cardBg: 'rgba(13, 20, 38, 0.4)',
+                        cardBorder: 'rgba(255, 255, 255, 0.05)',
+                        accentBlue: '#3b82f6',
+                        accentTeal: '#06b6d4',
+                        accentPink: '#ec4899',
+                    }
+                }
+            }
+        }
+        // Add this inside your existing <script> tag at the bottom
+document.addEventListener("DOMContentLoaded", () => {
+    const heroName = document.getElementById('heroName');
+    
+    // Add the class with a tiny delay for a premium feel
+    setTimeout(() => {
+        heroName.classList.add('is-visible');
+    }, 300);
+});
+// Add this to your <script> tag
+window.addEventListener('scroll', () => {
+    const homeSection = document.getElementById('home');
+    const scrollY = window.scrollY;
+    
+    // Only animate if we are within the first 100vh of scroll
+    if (scrollY < window.innerHeight) {
+        // Calculate a value between 0 and 1
+        const progress = scrollY / window.innerHeight;
+        
+       // 1. Calculate raw values
+const rawSlide = progress * 200;
+const rawScale = 1 - (progress * 0.2);
+const rawOpacity = 1 - (progress * 1.5);
+
+// 2. Clamp them safely so the browser doesn't choke
+const slideAmount = Math.min(rawSlide, 200);          // Caps maximum movement at 200px
+const scaleAmount = Math.max(rawScale, 0.8);          // Never shrinks smaller than 80% (0.8)
+const opacityAmount = Math.max(Math.min(rawOpacity, 1), 0); // Strictly locks opacity between 0 and 1
+
+// 3. Apply to style safely
+// Double-check that you are using backticks (`) for template literals here!
+element.style.transform = `translateY(-${slideAmount}px) scale(${scaleAmount})`;
+element.style.opacity = opacityAmount;
+        homeSection.style.transform = `translateY(-${slideAmount}px) scale(${scaleAmount})`;
+        homeSection.style.opacity = Math.max(0, opacityAmount);
+    } else {
+        homeSection.style.opacity = 0;
+    }
+});
+window.addEventListener('scroll', () => {
+    const homeSection = document.getElementById('home');
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+
+    // Calculate how far we've scrolled within the first screen height
+    if (scrollY <= windowHeight) {
+        const progress = scrollY / windowHeight;
+        
+        // 1. Shrink slightly (scale 1 to 0.8)
+        const scale = 1 - (progress * 0.2);
+        // 2. Fade out
+        const opacity = 1 - (progress * 1.5);
+        // 3. Move up slightly
+        const translateY = progress * -150; 
+
+        homeSection.style.transform = `translateY(${translateY}px) scale(${scale})`;
+        homeSection.style.opacity = Math.max(0, opacity);
+    }
+});
+    </script>
+    <style>
+        /* Add to your <style> block */
+#home {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* This class will be added by JS when scrolling */
+.hide-home {
+    opacity: 0;
+    transform: translateY(-50px);
+    pointer-events: none; /* Keeps it from blocking clicks */
+}
+        /* Add to your existing <style> tag */
+.name-reveal {
+    opacity: 0;
+    transform: translateX(-50px); /* Starts 50px to the left */
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.name-reveal.is-visible {
+    opacity: 1;
+    transform: translateX(0); /* Slides to original position */
+}
+
+        /* Ambient Lighting / Glow Background Elements */
+        .ambient-glow-1 {
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            animation: drift-slow 25s infinite alternate ease-in-out;
+        }
+        .ambient-glow-2 {
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+            animation: drift-slow-reverse 30s infinite alternate ease-in-out;
+        }
+        .ambient-glow-3 {
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+            animation: drift-medium 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes drift-slow {
+            0% { transform: translate(-20%, -20%) scale(1); }
+            100% { transform: translate(20%, 20%) scale(1.2); }
+        }
+        @keyframes drift-slow-reverse {
+            0% { transform: translate(30%, 30%) scale(1.2); }
+            100% { transform: translate(-30%, -30%) scale(0.8); }
+        }
+        @keyframes drift-medium {
+            0% { transform: translate(-10%, 30%) scale(0.9); }
+            100% { transform: translate(20%, -20%) scale(1.1); }
+        }
+
+        /* Floating Animation */
+        .float-slow {
+            animation: float 6s ease-in-out infinite;
+        }
+        .float-delayed {
+            animation: float 6s ease-in-out infinite;
+            animation-delay: 3s;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Glow border & Glassmorphism */
+        .glass-panel {
+            background: rgba(10, 17, 34, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-panel:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15);
+        }
+
+        /* Interactive active states */
+        .nav-link-active {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff !important;
+        }
+
+        /* Fade up reveal animations on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradient custom utilities */
+        .text-gradient {
+            background: linear-gradient(135deg, #60a5fa 10%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #06b6d4 100%);
+        }
+
+        /* Custom Cursor for premium feel */
+        @media (min-width: 1024px) {
+            .custom-cursor {
+                width: 20px;
+                height: 20px;
+                border: 2px solid rgba(59, 130, 246, 0.5);
+                border-radius: 50%;
+                position: fixed;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                z-index: 9999;
+                transition: width 0.2s, height 0.2s, background-color 0.2s;
+            }
+            .custom-cursor-dot {
+                width: 4px;
+                height: 4px;
+                background-color: #3b82f6;
+                border-radius: 50%;
+                position: fixed;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                z-index: 9999;
+            }
+            body:hover .custom-cursor { opacity: 1; }
+            body:active .custom-cursor {
+                width: 30px;
+                height: 30px;
+                background-color: rgba(59, 130, 246, 0.1);
+            }
+        }
+        /* Ensure home section can be pinned */
+#home {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 10;
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+    transform-origin: center;
+}
+#home {
+    will-change: transform, opacity;
+    /* This prevents the rest of the site from being blocked */
+    pointer-events: auto; 
+}
+
+/* Optional: If you want the About section to slide up *under* the Home section */
+#about {
+    margin-top: -10vh; /* Pulls it up slightly to overlap */
+    padding-top: 10vh;
+}
+    </style>
+</head>
+<body class="bg-[#050811] text-slate-100 font-sans relative overflow-x-hidden min-h-screen">
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor hidden lg:block" id="customCursor"></div>
+    <div class="custom-cursor-dot hidden lg:block" id="customCursorDot"></div>
+
+    <!-- BACKGROUND LIGHTING SYSTEM -->
+    <div class="absolute top-0 left-1/4 w-[600px] h-[600px] ambient-glow-1 rounded-full pointer-events-none z-0"></div>
+    <div class="absolute top-[30vh] right-1/4 w-[700px] h-[700px] ambient-glow-2 rounded-full pointer-events-none z-0"></div>
+    <div class="absolute top-[80vh] left-1/3 w-[600px] h-[600px] ambient-glow-3 rounded-full pointer-events-none z-0"></div>
+    <div class="absolute top-[150vh] right-1/3 w-[800px] h-[800px] ambient-glow-1 rounded-full pointer-events-none z-0"></div>
+    <div class="absolute top-[220vh] left-1/4 w-[700px] h-[700px] ambient-glow-2 rounded-full pointer-events-none z-0"></div>
+    <div class="absolute top-[300vh] right-1/4 w-[600px] h-[600px] ambient-glow-3 rounded-full pointer-events-none z-0"></div>
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-6" id="mainHeader">
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+            
+            <!-- Logo Section -->
+       <a href="#home" class="logo-container flex items-center gap-3 cursor-pointer group decoration-none">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20 standard-transition group-hover:scale-105">
+        TS
+    </div>
+    <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+        Thousif Shaik
+    </span>
+</a>
+            <!-- Floating Navigation Capsule -->
+            <nav class="glass-panel rounded-full px-2 py-1.5 hidden md:flex items-center gap-1">
+                <a href="#home" class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200 nav-link-active" data-section="home">Home</a>
+                <a href="#about" class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200" data-section="about">About</a>
+                <a href="#skills" class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200" data-section="skills">Skills</a>
+                <a href="#services" class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200" data-section="services">Services</a>
+                <a href="#work" class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200" data-section="work">Work</a>
+                <a href="#contact" class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200" data-section="contact">Contact</a>
+            </nav>
+
+            <!-- Hire Me Button -->
+            <div>
+                <button onclick="openModal('hireMe')" class="bg-white text-slate-900 font-bold px-6 py-2.5 rounded-full text-xs hover:bg-slate-200 hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg shadow-white/5">
+                    Hire Me
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU CAPSULE (Floating Bottom Bar for Mobile Ergonomics) -->
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-w-sm">
+        <div class="glass-panel rounded-full py-2 px-3 flex items-center justify-around shadow-xl">
+            <a href="#home" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="home"><i data-lucide="home" class="w-5 h-5"></i></a>
+            <a href="#about" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="about"><i data-lucide="user" class="w-5 h-5"></i></a>
+            <a href="#skills" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="skills"><i data-lucide="cpu" class="w-5 h-5"></i></a>
+            <a href="#services" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="services"><i data-lucide="layers" class="w-5 h-5"></i></a>
+            <a href="#work" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="work"><i data-lucide="briefcase" class="w-5 h-5"></i></a>
+            <a href="#contact" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="contact"><i data-lucide="mail" class="w-5 h-5"></i></a>
+        </div>
+    </div>
+
+
+    <!-- 00. HERO SECTION -->
+    <section id="home" class="min-h-screen flex flex-col justify-center items-center pt-32 pb-24 relative px-6 z-10 overflow-hidden">
+        <div class="max-w-4xl text-center flex flex-col items-center">
+            
+            
+            <!-- Freelance Tag -->
+            <div class="float-slow inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#3b82f6]/20 bg-[#111933]/40 text-[#60a5fa] text-[10px] md:text-xs font-semibold uppercase tracking-widest mb-10">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
+                </span>
+                ✨ Available for Freelance • Hyderabad, India
+            </div>
+
+            <!-- Big Core Heading -->
+            <h1 id="heroName" class="name-reveal text-5xl md:text-8xl font-extrabold tracking-tight text-white mb-4 select-none">
+    Thousif Shaik
+</h1>
+            <h2 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-8 text-gradient select-none">
+                Graphic Designer
+            </h2>
+
+            <!-- Short Bio Description -->
+            <p class="text-base md:text-lg text-slate-400 max-w-xl leading-relaxed mb-10">
+                I'm <strong class="text-slate-200">Thousif Shaik</strong> — a graphic designer crafting bold brand identities, luxurious visual systems, and motion-rich digital experiences that move people.
+            </p>
+
+            <!-- Interactive Action CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center gap-4 mb-20">
+                <a href="#work" class="btn-gradient text-white font-bold px-8 py-4 rounded-full text-sm hover:opacity-90 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 shadow-xl shadow-[#3b82f6]/20">
+                    View My Work
+                </a>
+                <a href="#contact" class="px-8 py-4 rounded-full text-sm font-bold bg-[#111a33]/60 hover:bg-[#111a33] text-slate-200 border border-white/5 hover:border-white/10 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300">
+                    Let's Talk <span class="inline-block transition-transform duration-200 hover:translate-x-1">→</span>
+                </a>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500">
+                <span class="text-[10px] tracking-[0.25em] font-semibold text-slate-400">SCROLL</span>
+                <i data-lucide="arrow-down" class="w-4 h-4 animate-bounce"></i>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- 01. ABOUT SECTION -->
+    <section id="about" class="py-32 relative px-6 z-10 max-w-7xl mx-auto">
+        <div class="reveal">
+            <!-- Tag Indicator -->
+            <div class="text-[#3b82f6] text-xs font-bold tracking-widest uppercase mb-4 flex items-center gap-2">
+                <span class="w-8 h-[1px] bg-[#3b82f6]"></span> 01 — About
+            </div>
+            
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-16">
+                A designer obsessed with detail.
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Left Narrative Column -->
+                <div class="lg:col-span-7 space-y-6">
+                    <p class="text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
+                        I shape identities, interfaces, and stories. With nearly <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-400 font-semibold">two years</span> in the craft, I blend strategy with bold visual systems — turning brands into experiences people remember.
+                    </p>
+                    <p class="text-sm md:text-base text-slate-400 leading-relaxed">
+                        Trained as a Computer Science engineer, I bring a builder's mindset to design — systematic, precise, and quietly experimental. I work across logo, brand identity, social design, and creative direction for ambitious teams.
+                    </p>
+                </div>
+
+                <!-- Right Quick Info Card Column -->
+                <div class="lg:col-span-5 w-full">
+                    <div class="glass-panel rounded-3xl p-8 space-y-6 float-delayed">
+                        <div class="border-b border-white/5 pb-4 flex items-center justify-between">
+                            <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Based In</span>
+                            <span class="text-sm font-semibold text-white">Hyderabad, India</span>
+                        </div>
+                        <div class="border-b border-white/5 pb-4 flex items-center justify-between">
+                            <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Experience</span>
+                            <span class="text-sm font-semibold text-white">1 yr 11 mo</span>
+                        </div>
+                        <div class="border-b border-white/5 pb-4 flex items-center justify-between">
+                            <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Education</span>
+                            <span class="text-sm font-semibold text-white">B.Tech CSE</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Focus</span>
+                            <span class="text-sm font-semibold text-[#06b6d4]">Brand • Identity • Motion</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 02. SKILLS SECTION -->
+    <section id="skills" class="py-32 relative px-6 z-10 max-w-7xl mx-auto">
+        <div class="reveal">
+            
+            <!-- Tag Indicator -->
+            <div class="text-[#3b82f6] text-xs font-bold tracking-widest uppercase mb-4 flex items-center gap-2">
+                <span class="w-8 h-[1px] bg-[#3b82f6]"></span> 02 — Skills
+            </div>
+            
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-16">
+                The tools of the craft.
+            </h2>
+
+            <!-- Skills Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="skillsContainer">
+                
+                <!-- Skill Card: Adobe Photoshop -->
+                <div class="glass-panel rounded-2xl p-6" data-skill-type="Software">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-white text-base">Adobe Photoshop</h4>
+                        <span class="text-xs text-slate-400 font-semibold">95%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div class="skill-bar bg-gradient-to-r from-indigo-500 to-purple-500 h-full rounded-full w-0 transition-all duration-[1.5s]" data-percentage="95%"></div>
+                    </div>
+                </div>
+
+                <!-- Skill Card: Adobe Illustrator -->
+                <div class="glass-panel rounded-2xl p-6" data-skill-type="Software">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-white text-base">Adobe Illustrator</h4>
+                        <span class="text-xs text-slate-400 font-semibold">92%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div class="skill-bar bg-gradient-to-r from-cyan-500 to-blue-500 h-full rounded-full w-0 transition-all duration-[1.5s]" data-percentage="92%"></div>
+                    </div>
+                </div>
+
+                <!-- Skill Card: Canva AI -->
+                <div class="glass-panel rounded-2xl p-6" data-skill-type="AI">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-white text-base">Canva AI</h4>
+                        <span class="text-xs text-slate-400 font-semibold">96%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div class="skill-bar bg-gradient-to-r from-pink-500 to-rose-400 h-full rounded-full w-0 transition-all duration-[1.5s]" data-percentage="96%"></div>
+                    </div>
+                </div>
+
+                <!-- Skill Card: CapCut -->
+                <div class="glass-panel rounded-2xl p-6" data-skill-type="Video">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-white text-base">CapCut</h4>
+                        <span class="text-xs text-slate-400 font-semibold">88%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div class="skill-bar bg-gradient-to-r from-indigo-500 to-cyan-500 h-full rounded-full w-0 transition-all duration-[1.5s]" data-percentage="88%"></div>
+                    </div>
+                </div>
+
+                <!-- Skill Card: Logo Design -->
+                <div class="glass-panel rounded-2xl p-6" data-skill-type="Branding">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-white text-base">Logo Design</h4>
+                        <span class="text-xs text-slate-400 font-semibold">94%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div class="skill-bar bg-gradient-to-r from-cyan-500 to-teal-400 h-full rounded-full w-0 transition-all duration-[1.5s]" data-percentage="94%"></div>
+                    </div>
+                </div>
+
+                <!-- Skill Card: Icon Design -->
+                <div class="glass-panel rounded-2xl p-6" data-skill-type="Branding">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-white text-base">Icon Design</h4>
+                        <span class="text-xs text-slate-400 font-semibold">90%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div class="skill-bar bg-gradient-to-r from-rose-500 to-amber-500 h-full rounded-full w-0 transition-all duration-[1.5s]" data-percentage="90%"></div>
+                    </div>
+                </div>
+
+                <!-- Skill Card: Brand Identity -->
+                <div class="glass-panel rounded-2xl p-6" data-skill-type="Branding">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-white text-base">Brand Identity</h4>
+                        <span class="text-xs text-slate-400 font-semibold">93%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div class="skill-bar bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full w-0 transition-all duration-[1.5s]" data-percentage="93%"></div>
+                    </div>
+                </div>
+
+                <!-- Skill Card: Social Media Design -->
+                <div class="glass-panel rounded-2xl p-6" data-skill-type="Social">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-white text-base">Social Media Design</h4>
+                        <span class="text-xs text-slate-400 font-semibold">95%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div class="skill-bar bg-gradient-to-r from-teal-500 to-cyan-500 h-full rounded-full w-0 transition-all duration-[1.5s]" data-percentage="95%"></div>
+                    </div>
+                </div>
+
+                <!-- Skill Card: Creative Direction -->
+                <div class="glass-panel rounded-2xl p-6" data-skill-type="Direction">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-white text-base">Creative Direction</h4>
+                        <span class="text-xs text-slate-400 font-semibold">89%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div class="skill-bar bg-gradient-to-r from-rose-500 to-orange-400 h-full rounded-full w-0 transition-all duration-[1.5s]" data-percentage="89%"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Pill Interactive Skill Category Filter Pills -->
+            <div class="flex flex-wrap items-center justify-center gap-3 pt-6">
+                <button onclick="filterSkills('All')" class="skill-filter-btn px-5 py-2.5 rounded-full text-xs font-semibold glass-panel text-white hover:border-white/20 hover:scale-105 active:scale-95 transition-all bg-[#111933]/60 active-filter-pill">
+                    All Skills
+                </button>
+                <button onclick="filterSkills('Branding')" class="skill-filter-btn px-5 py-2.5 rounded-full text-xs font-semibold glass-panel text-slate-400 hover:text-white hover:border-white/20 hover:scale-105 active:scale-95 transition-all">
+                    Branding & Identity
+                </button>
+                <button onclick="filterSkills('Software')" class="skill-filter-btn px-5 py-2.5 rounded-full text-xs font-semibold glass-panel text-slate-400 hover:text-white hover:border-white/20 hover:scale-105 active:scale-95 transition-all">
+                    Design Tools
+                </button>
+                <button onclick="filterSkills('Video')" class="skill-filter-btn px-5 py-2.5 rounded-full text-xs font-semibold glass-panel text-slate-400 hover:text-white hover:border-white/20 hover:scale-105 active:scale-95 transition-all">
+                    Motion / Video
+                </button>
+                <button onclick="filterSkills('AI')" class="skill-filter-btn px-5 py-2.5 rounded-full text-xs font-semibold glass-panel text-slate-400 hover:text-white hover:border-white/20 hover:scale-105 active:scale-95 transition-all">
+                    AI Tech
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- 03. SERVICES SECTION -->
+    <section id="services" class="py-32 relative px-6 z-10 max-w-7xl mx-auto">
+        <div class="reveal">
+            
+            <!-- Tag Indicator -->
+            <div class="text-[#3b82f6] text-xs font-bold tracking-widest uppercase mb-4 flex items-center gap-2">
+                <span class="w-8 h-[1px] bg-[#3b82f6]"></span> 03 — Expertise
+            </div>
+            
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-16">
+                What I do best.
+            </h2>
+
+            <!-- Grid of 6 interactive service cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Service Card 01 -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group h-80 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-cyan-400 group-hover:scale-110 group-hover:border-cyan-500/30 transition-all duration-300">
+                            <i data-lucide="edit" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-sm font-bold text-slate-600 group-hover:text-cyan-400/50 transition-colors duration-300">01</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors duration-300">Logo Design</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Distinctive marks built on strong concept, geometry, and timeless craft.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service Card 02 -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group h-80 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-purple-400 group-hover:scale-110 group-hover:border-purple-500/30 transition-all duration-300">
+                            <i data-lucide="layers" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-sm font-bold text-slate-600 group-hover:text-purple-400/50 transition-colors duration-300">02</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors duration-300">Brand Identity</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Complete identity systems — typography, color, voice, and applications.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service Card 03 -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group h-80 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-pink-400 group-hover:scale-110 group-hover:border-pink-500/30 transition-all duration-300">
+                            <i data-lucide="message-square" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-sm font-bold text-slate-600 group-hover:text-pink-400/50 transition-colors duration-300">03</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-pink-300 transition-colors duration-300">Social Media Design</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Scroll-stopping content systems crafted to convert and build community.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service Card 04 -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group h-80 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-amber-400 group-hover:scale-110 group-hover:border-amber-500/30 transition-all duration-300">
+                            <i data-lucide="palette" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-sm font-bold text-slate-600 group-hover:text-amber-400/50 transition-colors duration-300">04</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-amber-300 transition-colors duration-300">Icon & Illustration</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Custom icon sets and editorial illustrations with consistent visual language.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service Card 05 -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group h-80 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-indigo-400 group-hover:scale-110 group-hover:border-indigo-500/30 transition-all duration-300">
+                            <i data-lucide="video" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-sm font-bold text-slate-600 group-hover:text-indigo-400/50 transition-colors duration-300">05</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors duration-300">Motion & Video Edits</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Reels, ads and motion-driven content using CapCut and modern workflows.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service Card 06 -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group h-80 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-rose-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-rose-400 group-hover:scale-110 group-hover:border-rose-500/30 transition-all duration-300">
+                            <i data-lucide="compass" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-sm font-bold text-slate-600 group-hover:text-rose-400/50 transition-colors duration-300">06</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-rose-300 transition-colors duration-300">Creative Direction</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Strategic art direction across campaigns, launches, and brand worlds.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+<!-- 04. SELECTED WORK SECTION -->
+<section id="work" class="py-32 relative px-6 z-10 max-w-7xl mx-auto">
+    <div class="reveal">
+        
+        <div class="text-[#3b82f6] text-xs font-bold tracking-widest uppercase mb-4 flex items-center gap-2">
+            <span class="w-8 h-[1px] bg-[#3b82f6]"></span> 04 — Selected Work
+        </div>
+        
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-16">
+            Recent projects.
+        </h2>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Project Card 01: Brand Logo -->
+            <!-- Note: Image path added as the 5th argument below -->
+            <div onclick="openProjectModal('Brand Logo', 'Brand Identity', 'A luxury vector-based brand mark leveraging balanced geometry, spatial symmetry, and golden-ratio aesthetics.', '2025', '/assets/brand-logo.jpg')" 
+                 class="glass-panel rounded-3xl overflow-hidden group cursor-pointer relative flex flex-col justify-between aspect-video select-none">
+                
+                <div class="absolute inset-0 z-0 overflow-hidden bg-[#0d1426]">
+                    <img src="/assets/brand-logo.jpg" 
+                         alt="Brand Logo Project Concept Visual" 
+                         class="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#050811] via-[#050811]/40 to-black/20"></div>
+                </div>
+
+                <div class="p-6 flex justify-between items-start z-10 w-full">
+                    <span class="px-3 py-1 text-[10px] uppercase font-bold tracking-widest bg-black/40 border border-white/5 text-[#fbbf24] rounded-full backdrop-blur-sm">
+                        Brand Identity
+                    </span>
+                    <span class="px-3 py-1 text-[10px] uppercase font-bold tracking-widest bg-black/40 border border-white/5 text-slate-400 rounded-full backdrop-blur-sm">
+                        2025
+                    </span>
+                </div>
+
+                <div class="p-6 flex justify-between items-end z-10 w-full">
+                    <div>
+                        <span class="text-xs text-slate-400 tracking-widest uppercase mb-1 block font-bold">PROJECT CONCEPT</span>
+                        <h3 class="text-2xl font-bold text-white group-hover:text-[#fbbf24] transition-colors duration-300">Brand Logo</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-white text-slate-950 flex items-center justify-center group-hover:scale-110 group-hover:bg-[#fbbf24] transition-all duration-300 shadow-lg">
+                        <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Project Card 02: Amazon Store Web UI -->
+            <!-- Note: Image path added as the 5th argument below -->
+            <div onclick="openProjectModal('Amazon E-Commerce Store', 'Web Design & UX', 'Modernized high-fidelity desktop UX proposal featuring modular structure, luxury dark-mode aesthetics, custom illustrations, and highly conversion-optimized navigation flows.', '2025', '/assets/amazon-mockup.jpeg')" 
+                 class="glass-panel rounded-3xl overflow-hidden group cursor-pointer relative flex flex-col justify-between aspect-video select-none">
+                
+                <div class="absolute inset-0 z-0 overflow-hidden bg-[#0d1426]">
+                    <img src="/assets/amazon-mockup.jpeg" 
+                         alt="Amazon Store Web UI Project Showcase Visual" 
+                         class="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#050811] via-[#050811]/40 to-black/20"></div>
+                </div>
+
+                <div class="p-6 flex justify-between items-start z-10 w-full">
+                    <span class="px-3 py-1 text-[10px] uppercase font-bold tracking-widest bg-black/40 border border-white/5 text-[#3b82f6] rounded-full backdrop-blur-sm">
+                        Web Design & UX
+                    </span>
+                    <span class="px-3 py-1 text-[10px] uppercase font-bold tracking-widest bg-black/40 border border-white/5 text-slate-400 rounded-full backdrop-blur-sm">
+                        2025
+                    </span>
+                </div>
+
+                <div class="p-6 flex justify-between items-end z-10 w-full">
+                    <div>
+                        <span class="text-xs text-slate-400 tracking-widest uppercase mb-1 block font-bold">CASE STUDY</span>
+                        <h3 class="text-2xl font-bold text-white group-hover:text-[#3b82f6] transition-colors duration-300">Amazon UI Concept</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-white text-slate-950 flex items-center justify-center group-hover:scale-110 group-hover:bg-[#3b82f6] transition-all duration-300 shadow-lg">
+                        <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+    <!-- 05. JOURNEY & TIMELINE SECTION -->
+    <section id="journey" class="py-32 relative px-6 z-10 max-w-7xl mx-auto">
+        <div class="reveal">
+            
+            <!-- Tag Indicator -->
+            <div class="text-[#3b82f6] text-xs font-bold tracking-widest uppercase mb-4 flex items-center gap-2">
+                <span class="w-8 h-[1px] bg-[#3b82f6]"></span> 05 — Experience
+            </div>
+            
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-16">
+                The journey, in years.
+            </h2>
+
+            <!-- Stat counters row -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
+                
+                <!-- Stat Card 01 -->
+                <div class="glass-panel rounded-2xl p-6 text-center group">
+                    <span class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500 block mb-2 group-hover:scale-110 transition-transform duration-300">
+                        2+
+                    </span>
+                    <span class="text-[10px] md:text-xs uppercase tracking-widest text-slate-400 font-bold block">
+                        Years of Experience
+                    </span>
+                </div>
+
+                <!-- Stat Card 02 -->
+                <div class="glass-panel rounded-2xl p-6 text-center group">
+                    <span class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 block mb-2 group-hover:scale-110 transition-transform duration-300">
+                        25+
+                    </span>
+                    <span class="text-[10px] md:text-xs uppercase tracking-widest text-slate-400 font-bold block">
+                        Projects Contributed
+                    </span>
+                </div>
+
+                <!-- Stat Card 03 -->
+                <div class="glass-panel rounded-2xl p-6 text-center group">
+                    <span class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500 block mb-2 group-hover:scale-110 transition-transform duration-300">
+                        12+
+                    </span>
+                    <span class="text-[10px] md:text-xs uppercase tracking-widest text-slate-400 font-bold block">
+                        Businesses Helped
+                    </span>
+                </div>
+
+                <!-- Stat Card 04 -->
+                <div class="glass-panel rounded-2xl p-6 text-center group">
+                    <span class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-500 block mb-2 group-hover:scale-110 transition-transform duration-300">
+                        100%
+                    </span>
+                    <span class="text-[10px] md:text-xs uppercase tracking-widest text-slate-400 font-bold block">
+                        Work Dedication
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- Professional Timeline UI -->
+            <div class="relative border-l border-white/5 max-w-3xl mx-auto pl-8 sm:pl-12 space-y-12">
+                
+                <!-- Timeline dot spacer glow -->
+                <div class="absolute left-0 top-0 w-[1px] h-full bg-gradient-to-b from-[#3b82f6] via-transparent to-transparent"></div>
+
+                <!-- Timeline Item 01 -->
+                <div class="relative group">
+                    <!-- Timeline circle dot -->
+                    <div class="absolute -left-[41px] sm:-left-[57px] top-1 w-5 h-5 rounded-full bg-indigo-500 border-4 border-[#050811] group-hover:scale-125 transition-transform duration-300 shadow-md shadow-indigo-500/50"></div>
+                    <div>
+                        <div class="text-[#60a5fa] text-xs font-bold tracking-widest uppercase mb-1 flex items-center gap-2">
+                            2024 — NOW
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-1 group-hover:text-[#60a5fa] transition-colors">
+                            Freelance Graphic Designer
+                        </h3>
+                        <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider block mb-3">Independent</span>
+                        <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
+                            Brand identities, social systems, and creative direction for global clients. Shaping end-to-end design strategies, marketing collateral systems, and high-impact custom presentation architectures.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 02 -->
+                <div class="relative group">
+                    <!-- Timeline circle dot -->
+                    <div class="absolute -left-[41px] sm:-left-[57px] top-1 w-5 h-5 rounded-full bg-cyan-500 border-4 border-[#050811] group-hover:scale-125 transition-transform duration-300 shadow-md shadow-cyan-500/50"></div>
+                    <div>
+                        <div class="text-cyan-400 text-xs font-bold tracking-widest uppercase mb-1 flex items-center gap-2">
+                            2023
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors">
+                            Graphic Designer
+                        </h3>
+                        <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider block mb-3">Studio Engagement</span>
+                        <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
+                            Led visual design for startup launches, packaging, and editorial campaigns. Worked directly with cross-functional marketing teams to execute modern visual storytelling assets.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 03 -->
+                <div class="relative group">
+                    <!-- Timeline circle dot -->
+                    <div class="absolute -left-[41px] sm:-left-[57px] top-1 w-5 h-5 rounded-full bg-slate-700 border-4 border-[#050811] group-hover:scale-125 transition-transform duration-300 shadow-md"></div>
+                    <div>
+                        <div class="text-slate-400 text-xs font-bold tracking-widest uppercase mb-1 flex items-center gap-2">
+                            2022
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-1 transition-colors">
+                            Design Apprentice
+                        </h3>
+                        <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider block mb-3">Foundation Training</span>
+                        <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
+                            Mastered industry-standard layout architectures, color theories, strict grid design systems, advanced typography layout, and the core fundamentals of commercial brand identity creation.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- 06. CONTACT SECTION -->
+    <section id="contact" class="py-32 relative px-6 z-10 max-w-7xl mx-auto">
+        <div class="reveal">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                
+                <!-- Left Details Info Column -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+                            Have a project in mind?
+                        </h2>
+                        <span class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gradient block mb-6">
+                            Let's talk.
+                        </span>
+                        <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                            Open to freelance work, creative direction, and long-term partnerships. Reach out — I usually reply within a day.
+                        </p>
+                    </div>
+
+                    <!-- Contact Detail Icons Card Elements -->
+                    <div class="space-y-4">
+                        
+                        <!-- Contact Detail - Email -->
+                        <a href="mailto:thousifshaik74@gmail.com" class="glass-panel rounded-2xl p-5 flex items-center gap-5 hover:translate-x-2">
+                            <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-blue-400">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-500 uppercase tracking-widest block font-bold">EMAIL</span>
+                                <span class="text-sm sm:text-base text-white font-semibold">thousifshaik74@gmail.com</span>
+                            </div>
+                        </a>
+
+                        <!-- Contact Detail - Phone -->
+                        <a href="tel:+916304840902" class="glass-panel rounded-2xl p-5 flex items-center gap-5 hover:translate-x-2">
+                            <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-cyan-400">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-500 uppercase tracking-widest block font-bold">PHONE</span>
+                                <span class="text-sm sm:text-base text-white font-semibold">+91 6304840902</span>
+                            </div>
+                        </a>
+
+                        <!-- Contact Detail - Location -->
+                        <div class="glass-panel rounded-2xl p-5 flex items-center gap-5">
+                            <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-pink-400">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-500 uppercase tracking-widest block font-bold">LOCATION</span>
+                                <span class="text-sm sm:text-base text-white font-semibold">Hyderabad, India</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right Contact Form Column -->
+                <div class="lg:col-span-7 w-full">
+                    <form id="portfolioContactForm" onsubmit="handleFormSubmit(event)" class="glass-panel rounded-3xl p-8 sm:p-10 space-y-6">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- Name Field -->
+                            <div class="space-y-2">
+                                <label for="name" class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Your Name</label>
+                                <input type="text" id="name" required placeholder="John Doe" 
+                                       class="w-full bg-[#0a1122]/80 border border-white/5 rounded-2xl px-5 py-4 text-sm text-white focus:outline-none focus:border-[#3b82f6]/50 focus:ring-1 focus:ring-[#3b82f6]/50 transition-all">
+                            </div>
+                            <!-- Email Field -->
+                            <div class="space-y-2">
+                                <label for="email" class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Your Email</label>
+                                <input type="email" id="email" required placeholder="john@example.com" 
+                                       class="w-full bg-[#0a1122]/80 border border-white/5 rounded-2xl px-5 py-4 text-sm text-white focus:outline-none focus:border-[#3b82f6]/50 focus:ring-1 focus:ring-[#3b82f6]/50 transition-all">
+                            </div>
+                        </div>
+
+                        <!-- Message Body Field -->
+                        <div class="space-y-2">
+                            <label for="message" class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Tell me about your project...</label>
+                            <textarea id="message" required rows="5" placeholder="Let's build something beautiful together..." 
+                                      class="w-full bg-[#0a1122]/80 border border-white/5 rounded-2xl px-5 py-4 text-sm text-white focus:outline-none focus:border-[#3b82f6]/50 focus:ring-1 focus:ring-[#3b82f6]/50 transition-all resize-none"></textarea>
+                        </div>
+
+                        <!-- Action Submit Button -->
+                        <button type="submit" class="w-full btn-gradient hover:opacity-90 active:scale-[0.99] transition-all text-white font-bold py-4 rounded-2xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#3b82f6]/20">
+                            Send Message <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- SIMPLE FOOTER -->
+    <footer class="py-12 border-t border-white/5 text-center text-xs text-slate-500 relative z-10">
+        <p>&copy; 2026 Thousif Shaik. All Rights Reserved. Built with precision and detail.</p>
+    </footer>
+
+
+    <!-- ==================== PREMIUM OVERLAY MODALS ==================== -->
+    
+    <!-- 1. HIRE ME MODAL -->
+    <div id="hireMeModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] hidden flex items-center justify-center p-6 transition-all duration-300 opacity-0">
+        <div class="glass-panel w-full max-w-lg rounded-3xl p-8 space-y-6 relative translate-y-8 transition-transform duration-300">
+            <!-- Close Button -->
+            <button onclick="closeModal('hireMe')" class="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="text-center">
+                <h3 class="text-2xl font-bold text-white mb-2">Work with Thousif Shaik</h3>
+                <p class="text-sm text-slate-400">Let's craft visual assets that distinguish your business.</p>
+            </div>
+
+            <!-- Predefined Booking Packages / Options -->
+            <div class="space-y-3">
+                <div onclick="selectPackage('Identity Design')" class="package-option border border-white/5 bg-white/5 hover:bg-white/10 p-4 rounded-2xl flex items-center justify-between cursor-pointer group transition-all">
+                    <div>
+                        <h4 class="font-bold text-white text-sm">Identity & Logo Design</h4>
+                        <p class="text-xs text-slate-400">Premium visual identities & luxury brand marks</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors"></i>
+                </div>
+
+                <div onclick="selectPackage('Social Media & Motion Graphics')" class="package-option border border-white/5 bg-white/5 hover:bg-white/10 p-4 rounded-2xl flex items-center justify-between cursor-pointer group transition-all">
+                    <div>
+                        <h4 class="font-bold text-white text-sm">Social Media & Motion Graphics</h4>
+                        <p class="text-xs text-slate-400">Stunning engagement content and animations</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors"></i>
+                </div>
+
+                <div onclick="selectPackage('Custom Design Retainer')" class="package-option border border-white/5 bg-white/5 hover:bg-white/10 p-4 rounded-2xl flex items-center justify-between cursor-pointer group transition-all">
+                    <div>
+                        <h4 class="font-bold text-white text-sm">Monthly Creative Retainer</h4>
+                        <p class="text-xs text-slate-400">Dedicated creative services on a continuous basis</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors"></i>
+                </div>
+            </div>
+
+            <!-- Bottom Note -->
+            <p class="text-[10px] text-slate-500 text-center">
+                Selecting an option pre-fills our communication stream directly. No strict commitment.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- 2. PROJECT DETAILED INSIGHT MODAL -->
+<div id="projectModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] hidden flex items-center justify-center p-6 transition-all duration-300 opacity-0">
+    <div class="glass-panel w-full max-w-2xl rounded-3xl p-8 space-y-6 relative translate-y-8 transition-transform duration-300 overflow-y-auto max-h-[90vh]">
+        <!-- Close Button -->
+        <button onclick="closeProjectModalDirect()" class="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors z-20">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+
+        <div class="space-y-4">
+            <div class="flex flex-wrap gap-2 items-center">
+                <span id="projectCategory" class="px-3 py-1 text-[10px] uppercase font-bold tracking-widest bg-[#3b82f6]/20 border border-[#3b82f6]/30 text-[#60a5fa] rounded-full">
+                    Category
+                </span>
+                <span id="projectYear" class="px-3 py-1 text-[10px] uppercase font-bold tracking-widest bg-white/5 border border-white/10 text-slate-400 rounded-full">
+                    Year
+                </span>
+            </div>
+
+            <h3 id="projectTitle" class="text-3xl font-extrabold text-white">Project Title</h3>
+            
+            <p id="projectDescription" class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                Detailed project showcase narrative goes here.
+            </p>
+
+            <!-- Real Dynamic Image Showcase Space Inside Modal -->
+            <div class="w-full aspect-video bg-[#090f1d] rounded-2xl border border-white/5 relative overflow-hidden">
+                <img id="modalProjectImage" src="" alt="Project Showcase Image" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Action CTA inside project modal -->
+            <div class="flex justify-end gap-3 pt-4">
+                <button onclick="closeProjectModalDirect()" class="px-6 py-2.5 rounded-full text-xs font-bold text-slate-400 hover:text-white transition-colors">
+                    Close Showcase
+                </button>
+                <button onclick="bookingPreFillFromShowcase()" class="bg-white text-slate-900 font-bold px-6 py-2.5 rounded-full text-xs hover:bg-slate-200 transition-colors">
+                    Inquire About Similar Project
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- 3. SUCCESS NOTIFICATION TOAST -->
+    <div id="toast" class="fixed bottom-10 right-10 z-[110] hidden flex items-center gap-3 bg-slate-900/90 border border-emerald-500/30 text-white px-6 py-4 rounded-2xl shadow-xl transition-all duration-300 translate-y-8 opacity-0">
+        <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+            <i data-lucide="check" class="w-5 h-5"></i>
+        </div>
+        <div>
+            <h5 class="text-sm font-bold text-white">Message Dispatched!</h5>
+            <p class="text-xs text-slate-400">Thousif Shaik will review it shortly.</p>
+        </div>
+    </div>
+
+
+    <!-- ==================== LOGIC / INTERACTIONS ==================== -->
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+
+        // Custom Mouse Tracker Cursor (Lag/Dampen trailing style)
+        const customCursor = document.getElementById('customCursor');
+        const customCursorDot = document.getElementById('customCursorDot');
+
+        if (customCursor && customCursorDot) {
+            document.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                // Move inner dot instantly
+                customCursorDot.style.left = `${posX}px`;
+                customCursorDot.style.top = `${posY}px`;
+
+                // Smooth out external trailing border circle
+                customCursor.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 150, fill: 'forwards' });
+            });
+        }
+
+        // Header Style Shifter on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 50) {
+                header.classList.add('bg-[#050811]/90', 'backdrop-blur-md', 'shadow-lg', 'border-b', 'border-white/5', 'py-4');
+                header.classList.remove('py-6');
+            } else {
+                header.classList.remove('bg-[#050811]/90', 'backdrop-blur-md', 'shadow-lg', 'border-b', 'border-white/5', 'py-4');
+                header.classList.add('py-6');
+            }
+        });
+
+        // Intersection Observer for Smooth Reveal Animations on Scroll
+        const observerOptions = {
+            root: null,
+            threshold: 0.1,
+            rootMargin: '0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Animate skill progress bars inside this section if triggered
+                    const skillBars = entry.target.querySelectorAll('.skill-bar');
+                    if (skillBars.length > 0) {
+                        skillBars.forEach(bar => {
+                            const percent = bar.getAttribute('data-percentage');
+                            bar.style.width = percent;
+                        });
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(section => {
+            revealObserver.observe(section);
+        });
+
+        // Skill Card Filtering Logic
+        function filterSkills(type) {
+            // Update filter button styling states
+            const buttons = document.querySelectorAll('.skill-filter-btn');
+            buttons.forEach(btn => {
+                if (btn.innerText.toLowerCase().includes(type.toLowerCase()) || (type === 'All' && btn.innerText.includes('All'))) {
+                    btn.classList.add('active-filter-pill', 'text-white');
+                    btn.classList.remove('text-slate-400');
+                    btn.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                } else {
+                    btn.classList.remove('active-filter-pill', 'text-white');
+                    btn.classList.add('text-slate-400');
+                    btn.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                }
+            });
+
+            // Filter actual cards visible
+            const cards = document.querySelectorAll('#skillsContainer > div');
+            cards.forEach(card => {
+                const cardType = card.getAttribute('data-skill-type');
+                if (type === 'All' || cardType === type) {
+                    card.style.display = 'block';
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 200);
+                }
+            });
+        }
+
+        // Active Navigation Highlight Logic on Scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = 'home';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('nav-link-active');
+                if (link.getAttribute('data-section') === current) {
+                    link.classList.add('nav-link-active');
+                }
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.classList.remove('text-white', 'bg-white/10');
+                link.classList.add('text-slate-400');
+                if (link.getAttribute('data-section') === current) {
+                    link.classList.add('text-white', 'bg-white/10');
+                    link.classList.remove('text-slate-400');
+                }
+            });
+        });
+
+        // Booking package helper inside Hire Me
+        function selectPackage(packageName) {
+            closeModal('hireMe');
+            const messageBox = document.getElementById('message');
+            messageBox.value = `Hi Thousif, I would like to inquire about your "${packageName}" package. Let's design something incredible together!`;
+            // Scroll directly to contact section to finalize
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            messageBox.focus();
+        }
+
+        // Project showcase overlay actions
+        function bookingPreFillFromShowcase() {
+            const projectTitle = document.getElementById('projectTitle').innerText;
+            closeProjectModalDirect();
+            const messageBox = document.getElementById('message');
+            messageBox.value = `Hi Thousif, I saw your design showcase on "${projectTitle}" and am interested in building a similar project. Let's discuss details!`;
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            messageBox.focus();
+        }
+
+        // Hire Me Modal Handler
+        function openModal(modalId) {
+            const modal = document.getElementById('hireMeModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('translate-y-8');
+            }, 50);
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById('hireMeModal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.add('translate-y-8');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Showcase Detailed Insight Modal Handler
+        function openProjectModal(title, category, desc, year) {
+            document.getElementById('projectTitle').innerText = title;
+            document.getElementById('projectCategory').innerText = category;
+            document.getElementById('projectDescription').innerText = desc;
+            document.getElementById('projectYear').innerText = year;
+
+            const modal = document.getElementById('projectModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('translate-y-8');
+            }, 50);
+        }
+
+        function closeProjectModalDirect() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.add('translate-y-8');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Contact Form Handling (Premium UX Mock)
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // Collect Form Values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Trigger beautiful animated success notification
+            showSuccessToast();
+
+            // Clear inputs
+            document.getElementById('portfolioContactForm').reset();
+        }
+
+        function showSuccessToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-8');
+            }, 50);
+
+            // Hide Toast automatically after 4 seconds
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-8');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 300);
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
