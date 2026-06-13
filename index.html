@@ -12,7 +12,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
+   <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -29,93 +29,41 @@
                     }
                 }
             }
-        }
-        // Add this inside your existing <script> tag at the bottom
-document.addEventListener("DOMContentLoaded", () => {
-    const heroName = document.getElementById('heroName');
-    
-    // Add the class with a tiny delay for a premium feel
-    setTimeout(() => {
-        heroName.classList.add('is-visible');
-    }, 300);
-});
-// Add this to your <script> tag
-window.addEventListener('scroll', () => {
-    const homeSection = document.getElementById('home');
-    const scrollY = window.scrollY;
-    
-    // Only animate if we are within the first 100vh of scroll
-    if (scrollY < window.innerHeight) {
-        // Calculate a value between 0 and 1
-        const progress = scrollY / window.innerHeight;
-        
-       // 1. Calculate raw values
-const rawSlide = progress * 200;
-const rawScale = 1 - (progress * 0.2);
-const rawOpacity = 1 - (progress * 1.5);
+        };
 
-// 2. Clamp them safely so the browser doesn't choke
-const slideAmount = Math.min(rawSlide, 200);          // Caps maximum movement at 200px
-const scaleAmount = Math.max(rawScale, 0.8);          // Never shrinks smaller than 80% (0.8)
-const opacityAmount = Math.max(Math.min(rawOpacity, 1), 0); // Strictly locks opacity between 0 and 1
+        // Name Reveal Trigger
+        document.addEventListener("DOMContentLoaded", () => {
+            const heroName = document.getElementById('heroName');
+            if (heroName) {
+                setTimeout(() => {
+                    heroName.classList.add('is-visible');
+                }, 300);
+            }
+        });
 
-// 3. Apply to style safely
-// Double-check that you are using backticks (`) for template literals here!
-element.style.transform = `translateY(-${slideAmount}px) scale(${scaleAmount})`;
-element.style.opacity = opacityAmount;
-        homeSection.style.transform = `translateY(-${slideAmount}px) scale(${scaleAmount})`;
-        homeSection.style.opacity = Math.max(0, opacityAmount);
-    } else {
-        homeSection.style.opacity = 0;
-    }
-});
-window.addEventListener('scroll', () => {
-    const homeSection = document.getElementById('home');
-    const scrollY = window.scrollY;
-    const windowHeight = window.innerHeight;
+        // SINGLE Unified Smooth Background Scroll Animation Logic
+        window.addEventListener('scroll', () => {
+            const homeSection = document.getElementById('home');
+            if (!homeSection) return;
+            
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
 
-    // Calculate how far we've scrolled within the first screen height
-    if (scrollY <= windowHeight) {
-        const progress = scrollY / windowHeight;
-        
-        // 1. Shrink slightly (scale 1 to 0.8)
-        const scale = 1 - (progress * 0.2);
-        // 2. Fade out
-        const opacity = 1 - (progress * 1.5);
-        // 3. Move up slightly
-        const translateY = progress * -150; 
+            if (scrollY <= windowHeight) {
+                const progress = scrollY / windowHeight;
+                
+                const scale = 1 - (progress * 0.2);
+                const opacity = 1 - (progress * 1.5);
+                const translateY = progress * -150; 
 
-        homeSection.style.transform = `translateY(${translateY}px) scale(${scale})`;
-        homeSection.style.opacity = Math.max(0, opacity);
-    }
-});
+                homeSection.style.transform = `translateY(${translateY}px) scale(${scale})`;
+                homeSection.style.opacity = Math.max(0, opacity);
+            } else {
+                homeSection.style.opacity = 0;
+            }
+        });
     </script>
     <style>
-        /* Add to your <style> block */
-#home {
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* This class will be added by JS when scrolling */
-.hide-home {
-    opacity: 0;
-    transform: translateY(-50px);
-    pointer-events: none; /* Keeps it from blocking clicks */
-}
-        /* Add to your existing <style> tag */
-.name-reveal {
-    opacity: 0;
-    transform: translateX(-50px); /* Starts 50px to the left */
-    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.name-reveal.is-visible {
-    opacity: 1;
-    transform: translateX(0); /* Slides to original position */
-}
-
         /* Ambient Lighting / Glow Background Elements */
         .ambient-glow-1 {
             background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
@@ -144,13 +92,8 @@ window.addEventListener('scroll', () => {
         }
 
         /* Floating Animation */
-        .float-slow {
-            animation: float 6s ease-in-out infinite;
-        }
-        .float-delayed {
-            animation: float 6s ease-in-out infinite;
-            animation-delay: 3s;
-        }
+        .float-slow { animation: float 6s ease-in-out infinite; }
+        .float-delayed { animation: float 6s ease-in-out infinite; animation-delay: 3s; }
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
@@ -170,13 +113,11 @@ window.addEventListener('scroll', () => {
             box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15);
         }
 
-        /* Interactive active states */
         .nav-link-active {
             background: rgba(255, 255, 255, 0.08);
             color: #ffffff !important;
         }
 
-        /* Fade up reveal animations on scroll */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -187,7 +128,6 @@ window.addEventListener('scroll', () => {
             transform: translateY(0);
         }
 
-        /* Gradient custom utilities */
         .text-gradient {
             background: linear-gradient(135deg, #60a5fa 10%, #ec4899 100%);
             -webkit-background-clip: text;
@@ -197,56 +137,31 @@ window.addEventListener('scroll', () => {
             background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #06b6d4 100%);
         }
 
-        /* Custom Cursor for premium feel */
-        @media (min-width: 1024px) {
-            .custom-cursor {
-                width: 20px;
-                height: 20px;
-                border: 2px solid rgba(59, 130, 246, 0.5);
-                border-radius: 50%;
-                position: fixed;
-                transform: translate(-50%, -50%);
-                pointer-events: none;
-                z-index: 9999;
-                transition: width 0.2s, height 0.2s, background-color 0.2s;
-            }
-            .custom-cursor-dot {
-                width: 4px;
-                height: 4px;
-                background-color: #3b82f6;
-                border-radius: 50%;
-                position: fixed;
-                transform: translate(-50%, -50%);
-                pointer-events: none;
-                z-index: 9999;
-            }
-            body:hover .custom-cursor { opacity: 1; }
-            body:active .custom-cursor {
-                width: 30px;
-                height: 30px;
-                background-color: rgba(59, 130, 246, 0.1);
-            }
+        .name-reveal {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        /* Ensure home section can be pinned */
-#home {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    z-index: 10;
-    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
-    transform-origin: center;
-}
-#home {
-    will-change: transform, opacity;
-    /* This prevents the rest of the site from being blocked */
-    pointer-events: auto; 
-}
+        .name-reveal.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
 
-/* Optional: If you want the About section to slide up *under* the Home section */
-#about {
-    margin-top: -10vh; /* Pulls it up slightly to overlap */
-    padding-top: 10vh;
-}
+        /* Sticky Hero Configuration */
+        #home {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            z-index: 10;
+            transform-origin: center;
+            will-change: transform, opacity;
+            pointer-events: auto;
+        }
+
+        #about {
+            margin-top: -10vh;
+            padding-top: 10vh;
+        }
     </style>
 </head>
 <body class="bg-[#050811] text-slate-100 font-sans relative overflow-x-hidden min-h-screen">
@@ -281,7 +196,6 @@ window.addEventListener('scroll', () => {
                 <a href="#home" class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200 nav-link-active" data-section="home">Home</a>
                 <a href="#about" class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200" data-section="about">About</a>
                 <a href="#skills" class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200" data-section="skills">Skills</a>
-                <a href="#services" class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200" data-section="services">Services</a>
                 <a href="#work" class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200" data-section="work">Work</a>
                 <a href="#contact" class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200" data-section="contact">Contact</a>
             </nav>
@@ -301,8 +215,7 @@ window.addEventListener('scroll', () => {
             <a href="#home" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="home"><i data-lucide="home" class="w-5 h-5"></i></a>
             <a href="#about" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="about"><i data-lucide="user" class="w-5 h-5"></i></a>
             <a href="#skills" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="skills"><i data-lucide="cpu" class="w-5 h-5"></i></a>
-            <a href="#services" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="services"><i data-lucide="layers" class="w-5 h-5"></i></a>
-            <a href="#work" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="work"><i data-lucide="briefcase" class="w-5 h-5"></i></a>
+            <a href="#work" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="work"><i data-lucide="layers" class="w-5 h-5"></i></a>
             <a href="#contact" class="mobile-nav-link p-2.5 text-slate-400 hover:text-white rounded-full transition-all" data-section="contact"><i data-lucide="mail" class="w-5 h-5"></i></a>
         </div>
     </div>
@@ -404,9 +317,7 @@ window.addEventListener('scroll', () => {
             </div>
         </div>
     </section>
-
-
-    <!-- 02. SKILLS SECTION -->
+ <!-- 02. SKILLS SECTION -->
     <section id="skills" class="py-32 relative px-6 z-10 max-w-7xl mx-auto">
         <div class="reveal">
             
@@ -545,216 +456,143 @@ window.addEventListener('scroll', () => {
         </div>
     </section>
 
+<section id="work" class="py-32 relative px-6 z-10 max-w-7xl mx-auto">
+    <div class="reveal">
+        
+        <div class="text-[#3b82f6] text-xs font-bold tracking-widest uppercase mb-4 flex items-center gap-2">
+            <span class="w-8 h-[1px] bg-[#3b82f6]"></span> 03 — Work
+        </div>
+        
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-16">
+            What I do best.
+        </h2>
 
-    <!-- 03. SERVICES SECTION -->
-    <section id="services" class="py-32 relative px-6 z-10 max-w-7xl mx-auto">
-        <div class="reveal">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            <!-- Tag Indicator -->
-            <div class="text-[#3b82f6] text-xs font-bold tracking-widest uppercase mb-4 flex items-center gap-2">
-                <span class="w-8 h-[1px] bg-[#3b82f6]"></span> 03 — Expertise
-            </div>
-            
-            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-16">
-                What I do best.
-            </h2>
-
-            <!-- Grid of 6 interactive service cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Service Card 01 -->
-                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group h-80 relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group min-h-[420px] relative overflow-hidden cursor-pointer"
+                 onclick="openProjectModal('Logo Design', 'Identity Design', 'Distinctive marks built on strong concept, geometry, and timeless craft.', '2026', ['assets/logo-design.jpg', 'assets/amazon-mockup.jpeg', 'assets/creative-direction.jpeg'])">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div>
                     <div class="flex justify-between items-start mb-6">
                         <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-cyan-400 group-hover:scale-110 group-hover:border-cyan-500/30 transition-all duration-300">
                             <i data-lucide="edit" class="w-5 h-5"></i>
                         </div>
                         <span class="text-sm font-bold text-slate-600 group-hover:text-cyan-400/50 transition-colors duration-300">01</span>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors duration-300">Logo Design</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Distinctive marks built on strong concept, geometry, and timeless craft.
-                        </p>
+                    <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden border border-white/5 bg-slate-950">
+                        <img src="assets/logo-design.jpg" alt="Logo Design" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors duration-300">Logo Design</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Distinctive marks built on strong concept, geometry, and timeless craft.
+                    </p>
                 </div>
+            </div>
 
-                <!-- Service Card 02 -->
-                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group h-80 relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group min-h-[420px] relative overflow-hidden cursor-pointer"
+                 onclick="openProjectModal('Brand Identity', 'Brand Systems', 'Complete identity systems — typography, color, voice, and applications.', '2026', ['assets/amazon-mockup.jpeg', 'assets/amazon-mockup2.jpeg', 'assets/amazon-mockup3.jpeg', 'assets/amazon-mockup4.jpeg'])">
+                <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div>
                     <div class="flex justify-between items-start mb-6">
                         <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-purple-400 group-hover:scale-110 group-hover:border-purple-500/30 transition-all duration-300">
                             <i data-lucide="layers" class="w-5 h-5"></i>
                         </div>
                         <span class="text-sm font-bold text-slate-600 group-hover:text-purple-400/50 transition-colors duration-300">02</span>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors duration-300">Brand Identity</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Complete identity systems — typography, color, voice, and applications.
-                        </p>
+                    <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden border border-white/5 bg-slate-950">
+                        <img src="assets/amazon-mockup.jpeg" alt="Brand Identity" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors duration-300">Brand Identity</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Complete identity systems — typography, color, voice, and applications.
+                    </p>
                 </div>
+            </div>
 
-                <!-- Service Card 03 -->
-                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group h-80 relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group min-h-[420px] relative overflow-hidden cursor-pointer"
+                 onclick="openProjectModal('Social Media Design', 'Social Content', 'Scroll-stopping content systems crafted to convert and build community.', '2026', ['assets/social1.jpeg', 'assets/social2.jpeg', 'assets/social3.jpeg', 'assets/social4.jpeg', 'assets/social5.jpeg', 'assets/social6.jpeg', 'assets/social7.jpeg', 'assets/social8.jpeg'])">
+                <div class="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div>
                     <div class="flex justify-between items-start mb-6">
                         <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-pink-400 group-hover:scale-110 group-hover:border-pink-500/30 transition-all duration-300">
                             <i data-lucide="message-square" class="w-5 h-5"></i>
                         </div>
                         <span class="text-sm font-bold text-slate-600 group-hover:text-pink-400/50 transition-colors duration-300">03</span>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-pink-300 transition-colors duration-300">Social Media Design</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Scroll-stopping content systems crafted to convert and build community.
-                        </p>
+                    <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden border border-white/5 bg-slate-950">
+                        <img src="assets/social1.jpeg" alt="Social Media Design Portfolio" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-pink-300 transition-colors duration-300">Social Media Design</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Scroll-stopping content systems crafted to convert and build community.
+                    </p>
                 </div>
+            </div>
 
-                <!-- Service Card 04 -->
-                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group h-80 relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group min-h-[420px] relative overflow-hidden cursor-pointer"
+                 onclick="openProjectModal('Icon & Illustration', 'Illustration Artwork', 'Custom icon sets and editorial illustrations with consistent visual language.', '2026', ['assets/icon-illustration-1.jpeg', 'assets/icon-illustration-2.jpeg', 'assets/icon-illustration-3.jpeg'])">
+                <div class="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div>
                     <div class="flex justify-between items-start mb-6">
                         <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-amber-400 group-hover:scale-110 group-hover:border-amber-500/30 transition-all duration-300">
                             <i data-lucide="palette" class="w-5 h-5"></i>
                         </div>
                         <span class="text-sm font-bold text-slate-600 group-hover:text-amber-400/50 transition-colors duration-300">04</span>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-amber-300 transition-colors duration-300">Icon & Illustration</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Custom icon sets and editorial illustrations with consistent visual language.
-                        </p>
+                    <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden border border-white/5 bg-white">
+                        <img src="assets/icon-illustration-1.jpeg" alt="Icon & Illustration" class="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500">
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-amber-300 transition-colors duration-300">Icon & Illustration</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Custom icon sets and editorial illustrations with consistent visual language.
+                    </p>
                 </div>
+            </div>
 
-                <!-- Service Card 05 -->
-                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group h-80 relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group min-h-[420px] relative overflow-hidden cursor-pointer"
+                 onclick="openProjectModal('Motion & Video Edits', 'Video Production', 'Reels, ads and motion-driven content using CapCut and modern workflows.', '2026', ['assets/motion1.mp4', 'assets/motion2.mp4'])">
+                <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div>
                     <div class="flex justify-between items-start mb-6">
                         <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-indigo-400 group-hover:scale-110 group-hover:border-indigo-500/30 transition-all duration-300">
                             <i data-lucide="video" class="w-5 h-5"></i>
                         </div>
                         <span class="text-sm font-bold text-slate-600 group-hover:text-indigo-400/50 transition-colors duration-300">05</span>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors duration-300">Motion & Video Edits</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Reels, ads and motion-driven content using CapCut and modern workflows.
-                        </p>
+                    <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden border border-white/5 bg-slate-950">
+                        <img src="assets/motion1.mp4" alt="Motion & Video Edits" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors duration-300">Motion & Video Edits</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Reels, ads and motion-driven content using CapCut and modern workflows.
+                    </p>
                 </div>
+            </div>
 
-                <!-- Service Card 06 -->
-                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group h-80 relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-rose-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between group min-h-[420px] relative overflow-hidden cursor-pointer"
+                 onclick="openProjectModal('Creative Direction', 'Art Direction', 'Strategic art direction across campaigns, launches, and brand worlds.', '2026', ['assets/creative-direction1.jpeg', 'assets/creative-direction2.jpeg', 'assets/creative-direction3.jpeg',   'assets/creative-direction4.jpeg', 'assets/creative-direction5.jpeg',  'assets/creative-direction6.jpeg'])">
+                <div class="absolute inset-0 bg-gradient-to-br from-rose-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div>
                     <div class="flex justify-between items-start mb-6">
                         <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-rose-400 group-hover:scale-110 group-hover:border-rose-500/30 transition-all duration-300">
                             <i data-lucide="compass" class="w-5 h-5"></i>
                         </div>
                         <span class="text-sm font-bold text-slate-600 group-hover:text-rose-400/50 transition-colors duration-300">06</span>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-rose-300 transition-colors duration-300">Creative Direction</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Strategic art direction across campaigns, launches, and brand worlds.
-                        </p>
+                    <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden border border-white/5 bg-slate-950">
+                        <img src="assets/creative-direction.jpeg" alt="Creative Direction" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-rose-300 transition-colors duration-300">Creative Direction</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Strategic art direction across campaigns, launches, and brand worlds.
+                    </p>
                 </div>
-
-            </div>
-
-        </div>
-    </section>
-
-<!-- 04. SELECTED WORK SECTION -->
-<section id="work" class="py-32 relative px-6 z-10 max-w-7xl mx-auto">
-    <div class="reveal">
-        
-        <div class="text-[#3b82f6] text-xs font-bold tracking-widest uppercase mb-4 flex items-center gap-2">
-            <span class="w-8 h-[1px] bg-[#3b82f6]"></span> 04 — Selected Work
-        </div>
-        
-        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-16">
-            Recent projects.
-        </h2>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            <!-- Project Card 01: Brand Logo -->
-            <!-- Note: Image path added as the 5th argument below -->
-            <div onclick="openProjectModal('Brand Logo', 'Brand Identity', 'A luxury vector-based brand mark leveraging balanced geometry, spatial symmetry, and golden-ratio aesthetics.', '2025', '/assets/brand-logo.jpg')" 
-                 class="glass-panel rounded-3xl overflow-hidden group cursor-pointer relative flex flex-col justify-between aspect-video select-none">
-                
-                <div class="absolute inset-0 z-0 overflow-hidden bg-[#0d1426]">
-                    <img src="/assets/brand-logo.jpg" 
-                         alt="Brand Logo Project Concept Visual" 
-                         class="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#050811] via-[#050811]/40 to-black/20"></div>
-                </div>
-
-                <div class="p-6 flex justify-between items-start z-10 w-full">
-                    <span class="px-3 py-1 text-[10px] uppercase font-bold tracking-widest bg-black/40 border border-white/5 text-[#fbbf24] rounded-full backdrop-blur-sm">
-                        Brand Identity
-                    </span>
-                    <span class="px-3 py-1 text-[10px] uppercase font-bold tracking-widest bg-black/40 border border-white/5 text-slate-400 rounded-full backdrop-blur-sm">
-                        2025
-                    </span>
-                </div>
-
-                <div class="p-6 flex justify-between items-end z-10 w-full">
-                    <div>
-                        <span class="text-xs text-slate-400 tracking-widest uppercase mb-1 block font-bold">PROJECT CONCEPT</span>
-                        <h3 class="text-2xl font-bold text-white group-hover:text-[#fbbf24] transition-colors duration-300">Brand Logo</h3>
-                    </div>
-                    <div class="w-12 h-12 rounded-full bg-white text-slate-950 flex items-center justify-center group-hover:scale-110 group-hover:bg-[#fbbf24] transition-all duration-300 shadow-lg">
-                        <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Project Card 02: Amazon Store Web UI -->
-            <!-- Note: Image path added as the 5th argument below -->
-            <div onclick="openProjectModal('Amazon E-Commerce Store', 'Web Design & UX', 'Modernized high-fidelity desktop UX proposal featuring modular structure, luxury dark-mode aesthetics, custom illustrations, and highly conversion-optimized navigation flows.', '2025', '/assets/amazon-mockup.jpeg')" 
-                 class="glass-panel rounded-3xl overflow-hidden group cursor-pointer relative flex flex-col justify-between aspect-video select-none">
-                
-                <div class="absolute inset-0 z-0 overflow-hidden bg-[#0d1426]">
-                    <img src="/assets/amazon-mockup.jpeg" 
-                         alt="Amazon Store Web UI Project Showcase Visual" 
-                         class="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#050811] via-[#050811]/40 to-black/20"></div>
-                </div>
-
-                <div class="p-6 flex justify-between items-start z-10 w-full">
-                    <span class="px-3 py-1 text-[10px] uppercase font-bold tracking-widest bg-black/40 border border-white/5 text-[#3b82f6] rounded-full backdrop-blur-sm">
-                        Web Design & UX
-                    </span>
-                    <span class="px-3 py-1 text-[10px] uppercase font-bold tracking-widest bg-black/40 border border-white/5 text-slate-400 rounded-full backdrop-blur-sm">
-                        2025
-                    </span>
-                </div>
-
-                <div class="p-6 flex justify-between items-end z-10 w-full">
-                    <div>
-                        <span class="text-xs text-slate-400 tracking-widest uppercase mb-1 block font-bold">CASE STUDY</span>
-                        <h3 class="text-2xl font-bold text-white group-hover:text-[#3b82f6] transition-colors duration-300">Amazon UI Concept</h3>
-                    </div>
-                    <div class="w-12 h-12 rounded-full bg-white text-slate-950 flex items-center justify-center group-hover:scale-110 group-hover:bg-[#3b82f6] transition-all duration-300 shadow-lg">
-                        <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
-                    </div>
-                </div>
-
             </div>
 
         </div>
     </div>
 </section>
-
-
-    <!-- 05. JOURNEY & TIMELINE SECTION -->
+    <!-- 04. JOURNEY & TIMELINE SECTION -->
     <section id="journey" class="py-32 relative px-6 z-10 max-w-7xl mx-auto">
         <div class="reveal">
             
@@ -878,7 +716,7 @@ window.addEventListener('scroll', () => {
     </section>
 
 
-    <!-- 06. CONTACT SECTION -->
+    <!-- 05. CONTACT SECTION -->
     <section id="contact" class="py-32 relative px-6 z-10 max-w-7xl mx-auto">
         <div class="reveal">
             
@@ -1058,8 +896,24 @@ window.addEventListener('scroll', () => {
             </p>
 
             <!-- Real Dynamic Image Showcase Space Inside Modal -->
-            <div class="w-full aspect-video bg-[#090f1d] rounded-2xl border border-white/5 relative overflow-hidden">
-                <img id="modalProjectImage" src="" alt="Project Showcase Image" class="w-full h-full object-cover">
+            <div class="space-y-4">
+                <div class="w-full aspect-video bg-[#090f1d] rounded-2xl border border-white/5 relative overflow-hidden group/showcase">
+                    <img id="modalProjectImage" src="" alt="Project Showcase Image" class="w-full h-full object-contain transition-opacity duration-300">
+
+                    <button type="button" onclick="changeProjectSlide(-1)" class="project-slider-control absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 border border-white/10 text-white flex items-center justify-center hover:bg-white hover:text-slate-950 transition-all">
+                        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                    </button>
+                    <button type="button" onclick="changeProjectSlide(1)" class="project-slider-control absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 border border-white/10 text-white flex items-center justify-center hover:bg-white hover:text-slate-950 transition-all">
+                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                    </button>
+
+                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full bg-black/50 border border-white/10 text-[11px] font-bold text-white">
+                        <span id="projectSlideCounter">1 / 1</span>
+                    </div>
+                </div>
+
+                <div id="projectSliderDots" class="flex items-center justify-center gap-2"></div>
+                <div id="projectSliderThumbs" class="grid grid-cols-4 sm:grid-cols-5 gap-2"></div>
             </div>
 
             <!-- Action CTA inside project modal -->
@@ -1194,6 +1048,19 @@ window.addEventListener('scroll', () => {
         const navLinks = document.querySelectorAll('.nav-link');
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
+        document.querySelectorAll('a[href="#home"]').forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const homeSection = document.getElementById('home');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                history.replaceState(null, '', '#home');
+                if (homeSection) {
+                    homeSection.style.opacity = '1';
+                    homeSection.style.transform = 'translateY(0px) scale(1)';
+                }
+            });
+        });
+
         window.addEventListener('scroll', () => {
             let current = 'home';
             sections.forEach(section => {
@@ -1259,18 +1126,71 @@ window.addEventListener('scroll', () => {
             }, 300);
         }
 
+        let currentProjectImages = [];
+        let currentProjectSlide = 0;
+
+        function showProjectSlide(index) {
+            if (!currentProjectImages.length) return;
+
+            currentProjectSlide = (index + currentProjectImages.length) % currentProjectImages.length;
+
+            const modalImage = document.getElementById('modalProjectImage');
+            const counter = document.getElementById('projectSlideCounter');
+            const dots = document.getElementById('projectSliderDots');
+            const thumbs = document.getElementById('projectSliderThumbs');
+            const controls = document.querySelectorAll('.project-slider-control');
+            const activeImage = currentProjectImages[currentProjectSlide];
+
+            modalImage.style.opacity = '0';
+            setTimeout(() => {
+                modalImage.src = activeImage;
+                modalImage.alt = `${document.getElementById('projectTitle').innerText} showcase ${currentProjectSlide + 1}`;
+                modalImage.style.opacity = '1';
+            }, 120);
+
+            counter.innerText = `${currentProjectSlide + 1} / ${currentProjectImages.length}`;
+            controls.forEach(control => {
+                control.classList.toggle('hidden', currentProjectImages.length <= 1);
+            });
+
+            dots.innerHTML = currentProjectImages.map((_, dotIndex) => `
+                <button type="button"
+                        onclick="showProjectSlide(${dotIndex})"
+                        class="w-2.5 h-2.5 rounded-full transition-all ${dotIndex === currentProjectSlide ? 'bg-white scale-110' : 'bg-white/25 hover:bg-white/50'}"
+                        aria-label="Show slide ${dotIndex + 1}">
+                </button>
+            `).join('');
+
+            thumbs.innerHTML = currentProjectImages.map((image, thumbIndex) => `
+                <button type="button"
+                        onclick="showProjectSlide(${thumbIndex})"
+                        class="aspect-video rounded-xl overflow-hidden border transition-all ${thumbIndex === currentProjectSlide ? 'border-cyan-400 opacity-100' : 'border-white/10 opacity-55 hover:opacity-100'}"
+                        aria-label="Show project image ${thumbIndex + 1}">
+                    <img src="${image}" alt="" class="w-full h-full object-contain bg-white">
+                </button>
+            `).join('');
+        }
+
+        function changeProjectSlide(direction) {
+            showProjectSlide(currentProjectSlide + direction);
+        }
+
         // Showcase Detailed Insight Modal Handler
-        function openProjectModal(title, category, desc, year) {
+        function openProjectModal(title, category, desc, year, images = []) {
             document.getElementById('projectTitle').innerText = title;
             document.getElementById('projectCategory').innerText = category;
             document.getElementById('projectDescription').innerText = desc;
             document.getElementById('projectYear').innerText = year;
+            currentProjectImages = images.length ? images : ['assets/logo-design.jpg'];
+            currentProjectSlide = 0;
+            showProjectSlide(0);
 
             const modal = document.getElementById('projectModal');
             modal.classList.remove('hidden');
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
                 modal.querySelector('div').classList.remove('translate-y-8');
+                lucide.createIcons();
             }, 50);
         }
 
